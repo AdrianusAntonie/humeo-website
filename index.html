@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Humeo — Meer zeggenschap, meer werkplezier</title>
+<meta name="description" content="Humeo helpt organisaties zeggenschap en werkplezier vergroten onder medewerkers, management en directie — met een heldere aanpak in 6 stappen.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          navy: { 950: '#0F172A', 900: '#131D35', 800: '#1C2945', 700: '#283A5C', 400: '#64759A' },
+          mint: { DEFAULT: '#00F5A0', 400: '#3CF5B3' },
+          cyan: { DEFAULT: '#00B4D8', 400: '#22C3E6' },
+          ice: '#F8FAFC',
+        },
+        fontFamily: {
+          sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+        },
+      },
+    },
+  };
+</script>
+
+<style>
+  :root {
+    --navy-950: #0F172A;
+    --navy-900: #131D35;
+    --navy-800: #1C2945;
+    --mint: #00F5A0;
+    --cyan: #00B4D8;
+  }
+
+  * { -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; background: var(--navy-950); }
+
+  :focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* ---------- Type scale ---------- */
+  .h1 { font-size: clamp(2.5rem, 1.4rem + 4.6vw, 4.25rem); line-height: 1.04; letter-spacing: -0.03em; font-weight: 800; }
+  .h2 { font-size: clamp(2rem, 1.2rem + 2.6vw, 3rem); line-height: 1.1; letter-spacing: -0.025em; font-weight: 700; }
+  .h3 { font-size: 1.375rem; line-height: 1.3; letter-spacing: -0.01em; font-weight: 600; }
+  .body-lg { font-size: 1.1875rem; line-height: 1.7; }
+  .body-base { font-size: 1rem; line-height: 1.7; }
+  .eyebrow {
+    font-family: '"JetBrains Mono"', ui-monospace, monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .stat-num {
+    font-family: '"JetBrains Mono"', ui-monospace, monospace;
+    letter-spacing: -0.02em;
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: transform 220ms cubic-bezier(.16,.84,.32,1), box-shadow 220ms cubic-bezier(.16,.84,.32,1), filter 220ms ease, background-color 220ms ease, border-color 220ms ease;
+    will-change: transform;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn-primary {
+    background: linear-gradient(100deg, var(--mint), var(--cyan));
+    color: #07101F;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.08), 0 12px 24px -8px rgba(0,180,216,0.45), 0 4px 12px -4px rgba(0,245,160,0.3);
+  }
+  .btn-primary:hover { filter: brightness(1.06); transform: translateY(-2px); box-shadow: 0 1px 1px rgba(0,0,0,0.08), 0 18px 32px -8px rgba(0,180,216,0.5), 0 6px 16px -4px rgba(0,245,160,0.35); }
+  .btn-secondary {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--navy-700, #283A5C);
+    color: #fff;
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,0.07); border-color: #3A4F78; transform: translateY(-2px); }
+  .btn-ghost-light {
+    background: transparent;
+    border: 1px solid #CBD5E1;
+    color: var(--navy-950);
+  }
+  .btn-ghost-light:hover { background: #fff; border-color: #94A3B8; transform: translateY(-2px); box-shadow: 0 8px 20px -8px rgba(15,23,42,0.18); }
+
+  /* ---------- Surfaces ---------- */
+  .card-light {
+    background: #fff;
+    border: 1px solid rgba(15,23,42,0.07);
+    box-shadow: 0 1px 2px rgba(15,23,42,0.04), 0 12px 28px -12px rgba(15,23,42,0.10), 0 24px 48px -24px rgba(0,180,216,0.12);
+  }
+  .card-dark {
+    background: linear-gradient(155deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015));
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* ---------- Grain texture for dark sections ---------- */
+  .grain { position: relative; isolation: isolate; }
+  .grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    z-index: 1;
+  }
+
+  @keyframes breathe { 0%, 100% { opacity: 0.85; } 50% { opacity: 1; } }
+  .glow-blob { position: absolute; border-radius: 9999px; filter: blur(70px); pointer-events: none; animation: breathe 8s ease-in-out infinite; }
+
+  /* ---------- Sticky nav: hide on scroll down, show on scroll up ---------- */
+  header { transition: transform 380ms cubic-bezier(.16,.84,.32,1); }
+  header.nav-hidden { transform: translateY(-100%); }
+
+  /* ---------- Reveal-on-scroll ---------- */
+  .reveal {
+    --reveal-y: 18px;
+    opacity: 0;
+    transform: translateY(var(--reveal-y));
+    transition: opacity .7s cubic-bezier(.16,.84,.32,1), transform .7s cubic-bezier(.16,.84,.32,1);
+  }
+  .reveal.is-visible { opacity: 1; --reveal-y: 0px; }
+
+  /* ---------- Stagger delays for grouped reveals ---------- */
+  .d1 { transition-delay: 60ms; }
+  .d2 { transition-delay: 140ms; }
+  .d3 { transition-delay: 220ms; }
+  .d4 { transition-delay: 300ms; }
+  .d5 { transition-delay: 380ms; }
+  .d6 { transition-delay: 460ms; }
+
+  /* ---------- Card hover lift ---------- */
+  .card-hover { transition: transform 280ms cubic-bezier(.16,.84,.32,1), box-shadow 280ms ease, border-color 280ms ease; }
+  .reveal.card-hover { transition: opacity .7s cubic-bezier(.16,.84,.32,1), transform 380ms cubic-bezier(.16,.84,.32,1), box-shadow 280ms ease, border-color 280ms ease; }
+  .card-hover:hover { transform: translateY(calc(var(--reveal-y, 0px) - 4px)); }
+  .card-light.card-hover:hover { box-shadow: 0 4px 8px rgba(15,23,42,0.06), 0 24px 48px -20px rgba(15,23,42,0.18), 0 32px 64px -32px rgba(0,180,216,0.2); }
+  .card-dark.card-hover:hover { border-color: rgba(255,255,255,0.18); box-shadow: 0 24px 48px -24px rgba(0,180,216,0.3); }
+
+  /* ---------- Hero entrance ---------- */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  .enter { opacity: 0; animation: fadeUp .8s cubic-bezier(.16,.84,.32,1) forwards; }
+  .enter-1 { animation-delay: .05s; }
+  .enter-2 { animation-delay: .18s; }
+  .enter-3 { animation-delay: .30s; }
+  .enter-4 { animation-delay: .42s; }
+  .enter-5 { animation-delay: .54s; }
+
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  .float-card { animation: float 5.5s ease-in-out infinite; }
+  .float-card.delay { animation-delay: 1.4s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+    .enter { opacity: 1; }
+  }
+
+  .ring-circle { border-radius: 9999px; border: 2px solid transparent; }
+
+  .avatar-ring {
+    border: 1.5px solid rgba(0,180,216,0.3);
+    background: linear-gradient(155deg, rgba(0,245,160,0.14), rgba(0,180,216,0.14));
+    box-shadow: 0 16px 32px -16px rgba(0,180,216,0.3), 0 4px 10px -4px rgba(0,245,160,0.18);
+    transition: transform 280ms cubic-bezier(.16,.84,.32,1), box-shadow 280ms ease;
+  }
+  .avatar-ring:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 22px 40px -16px rgba(0,180,216,0.4), 0 6px 14px -4px rgba(0,245,160,0.22);
+  }
+
+  ::selection { background: rgba(0,180,216,0.3); }
+
+  /* ---------- Intro: rings sliding together into the Humeo wordmark ---------- */
+  .intro-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--navy-950);
+    animation: introFadeOut 0.5s ease forwards;
+    animation-delay: 1.3s;
+  }
+  .intro-mark { --ring: clamp(46px, 9vw, 64px); display: flex; align-items: center; }
+  .intro-ring {
+    width: var(--ring);
+    height: var(--ring);
+    border-radius: 9999px;
+    border: clamp(4px, 0.9vw, 5px) solid transparent;
+    flex-shrink: 0;
+    box-shadow: 0 0 24px -4px currentColor;
+  }
+  .intro-ring-left {
+    border-color: var(--mint);
+    color: rgba(0,245,160,0.5);
+    animation: introRingLeft 0.7s cubic-bezier(.16,.84,.32,1) forwards;
+  }
+  .intro-ring-right {
+    border-color: var(--cyan);
+    color: rgba(0,180,216,0.5);
+    margin-left: calc(var(--ring) * -0.34);
+    animation: introRingRight 0.7s cubic-bezier(.16,.84,.32,1) forwards;
+  }
+  .intro-word {
+    font-weight: 800;
+    font-size: clamp(1.75rem, 6vw, 2.5rem);
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-left: clamp(10px, 2vw, 18px);
+    opacity: 0;
+    transform: translateX(-10px);
+    animation: introWordIn 0.6s cubic-bezier(.16,.84,.32,1) forwards;
+    animation-delay: 0.5s;
+  }
+
+  @keyframes introRingLeft {
+    from { transform: translateX(-7.5em) scale(0.5); opacity: 0; }
+    to { transform: translateX(0) scale(1); opacity: 1; }
+  }
+  @keyframes introRingRight {
+    from { transform: translateX(7.5em) scale(0.5); opacity: 0; }
+    to { transform: translateX(0) scale(1); opacity: 1; }
+  }
+  @keyframes introWordIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes introFadeOut {
+    from { opacity: 1; visibility: visible; }
+    to { opacity: 0; visibility: hidden; pointer-events: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .intro-overlay, .intro-ring, .intro-word {
+      animation-delay: 0s !important;
+    }
+  }
+
+  /* ---------- Aanpak: step list + spotlight ---------- */
+  .step-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.7rem 0.9rem;
+    border-radius: 14px;
+    white-space: nowrap;
+    text-align: left;
+    color: rgba(255,255,255,0.45);
+    font-weight: 600;
+    font-size: 0.92rem;
+    flex-shrink: 0;
+    transition: color 220ms ease, background-color 220ms ease;
+  }
+  .step-btn:hover { color: rgba(255,255,255,0.8); }
+  .step-btn.is-active { color: #fff; background: rgba(255,255,255,0.07); }
+  .step-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+    border: 1.5px solid rgba(255,255,255,0.25);
+    color: rgba(255,255,255,0.6);
+    flex-shrink: 0;
+    transition: border-color 220ms ease, background 220ms ease, color 220ms ease;
+  }
+  .step-btn.is-active .step-num {
+    border-color: transparent;
+    background: linear-gradient(135deg, var(--mint), var(--cyan));
+    color: var(--navy-950);
+  }
+  .step-panel { display: none; }
+  .step-panel.is-active { display: block; animation: stepPanelIn 0.45s cubic-bezier(.16,.84,.32,1); }
+  @keyframes stepPanelIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+</style>
+</head>
+<body class="bg-navy-950 text-white antialiased">
+
+<div id="introOverlay" class="intro-overlay" aria-hidden="true">
+  <div class="intro-mark">
+    <span class="intro-ring intro-ring-left"></span>
+    <span class="intro-ring intro-ring-right"></span>
+    <span class="intro-word">Humeo</span>
+  </div>
+</div>
+
+<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-cyan focus:text-navy-950 focus:px-4 focus:py-2 focus:rounded-lg">Direct naar inhoud</a>
+
+<!-- ============ NAV ============ -->
+<header class="fixed top-4 left-4 right-4 sm:left-6 sm:right-6 lg:left-8 lg:right-8 z-50 flex justify-center">
+  <div class="w-full max-w-[1240px] rounded-[28px] border border-white/10 bg-navy-950/75 backdrop-blur-xl shadow-[0_16px_40px_-16px_rgba(0,0,0,0.5)] overflow-hidden">
+    <div class="px-6 lg:px-8 h-[68px] flex items-center justify-between">
+      <a href="#main" class="flex items-center py-2" aria-label="Humeo home">
+        <img src="assets/logo-color.svg" alt="Humeo" class="h-7 w-auto">
+      </a>
+
+      <nav class="hidden md:flex items-center gap-7" aria-label="Hoofdnavigatie">
+        <a href="#aanpak" class="body-base text-[14px] font-medium text-slate-300 hover:text-white transition-colors">Aanpak</a>
+        <a href="#voorwie" class="body-base text-[14px] font-medium text-slate-300 hover:text-white transition-colors">Voor wie</a>
+        <span class="w-px h-4 bg-white/15" aria-hidden="true"></span>
+        <a href="#team" class="body-base text-[14px] font-medium text-slate-300 hover:text-white transition-colors">Over ons</a>
+        <a href="#contact" class="body-base text-[14px] font-medium text-slate-300 hover:text-white transition-colors">Contact</a>
+      </nav>
+
+      <div class="hidden md:flex items-center gap-3">
+        <a href="#contact" class="text-[14px] font-medium text-slate-300 hover:text-white transition-colors px-2">Inloggen</a>
+        <a href="#contact" class="btn btn-primary !rounded-full !py-2.5 !px-5 !text-[14px]">Plan een kennismaking</a>
+      </div>
+
+      <button id="menuBtn" type="button" aria-label="Menu openen" aria-expanded="false" aria-controls="mobileMenu" class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/5 border border-white/10 text-white">
+        <svg id="menuIconOpen" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg id="menuIconClose" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" class="hidden"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+      </button>
+    </div>
+
+    <div id="mobileMenu" class="hidden md:hidden border-t border-white/10 px-6 py-5 flex flex-col gap-4">
+      <a href="#aanpak" class="body-base font-medium text-slate-200">Aanpak</a>
+      <a href="#voorwie" class="body-base font-medium text-slate-200">Voor wie</a>
+      <a href="#team" class="body-base font-medium text-slate-200">Over ons</a>
+      <a href="#contact" class="body-base font-medium text-slate-200">Contact</a>
+      <a href="#contact" class="btn btn-primary !rounded-full w-full mt-2">Plan een kennismaking</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<!-- ============ HERO ============ -->
+<section class="grain relative overflow-hidden pt-[148px] pb-24 md:pt-[180px] md:pb-32">
+  <div class="glow-blob w-[520px] h-[520px] -top-40 -left-40 bg-mint/20"></div>
+  <div class="glow-blob w-[480px] h-[480px] top-10 -right-32 bg-cyan/20"></div>
+
+  <div class="relative z-10 max-w-[1240px] mx-auto px-6 lg:px-10 grid lg:grid-cols-[1.05fr_0.95fr] gap-16 items-center">
+    <div>
+      <p class="enter enter-1 eyebrow text-mint mb-5 flex items-center gap-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-mint inline-block"></span>
+        DIGITAAL&nbsp;LEIDERSCHAP
+      </p>
+      <h1 class="enter enter-2 h1 text-white max-w-[640px]">Meer zeggenschap.<br>Meer werkplezier.</h1>
+      <p class="enter enter-3 body-lg text-slate-300 mt-6 max-w-[520px]">
+        Wanneer medewerkers weinig invloed ervaren op hun werk, dalen werkplezier, betrokkenheid en eigenaarschap. Humeo vergroot zeggenschap onder medewerkers, management en directie — gelijktijdig.
+      </p>
+
+      <div class="enter enter-4 flex flex-wrap items-center gap-4 mt-9">
+        <a href="#contact" class="btn btn-primary">Plan een kennismaking</a>
+        <a href="#aanpak" class="btn btn-secondary">
+          Bekijk de aanpak
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+      <p class="enter enter-5 eyebrow text-slate-500 mt-8 !tracking-[0.1em] !text-[11px]">PILOT IN 6 STAPPEN &nbsp;·&nbsp; ZEGGENSCHAP ALS HEFBOOM &nbsp;·&nbsp; ZONDER COMPLEXITEIT</p>
+    </div>
+
+    <!-- Signature hero visual: interlocking circles + floating context cards -->
+    <div class="relative h-[420px] md:h-[480px] hidden sm:block" aria-hidden="true">
+      <div class="absolute left-1/2 top-1/2 -translate-x-[58%] -translate-y-1/2 w-[280px] h-[280px] md:w-[320px] md:h-[320px] ring-circle" style="border-color: rgba(0,245,160,0.45); box-shadow: 0 0 60px -10px rgba(0,245,160,0.25) inset;"></div>
+      <div class="absolute left-1/2 top-1/2 -translate-x-[28%] -translate-y-1/2 w-[280px] h-[280px] md:w-[320px] md:h-[320px] ring-circle" style="border-color: rgba(0,180,216,0.5); box-shadow: 0 0 60px -10px rgba(0,180,216,0.3) inset;"></div>
+
+      <div class="float-card absolute left-[8%] top-[12%] w-[230px] card-dark rounded-2xl p-4 backdrop-blur-sm">
+        <span class="eyebrow !text-[10px] text-slate-400">DE BELANGRIJKSTE KNOP</span>
+        <p class="text-xl font-bold text-white mt-1.5">Zeggenschap</p>
+        <p class="text-[12px] text-slate-500 mt-1">Meepraten, meebepalen, invloed uitoefenen</p>
+      </div>
+
+      <div class="float-card delay absolute right-[2%] bottom-[16%] w-[210px] card-dark rounded-2xl p-4 backdrop-blur-sm">
+        <span class="eyebrow !text-[10px] text-slate-400">GELIJKTIJDIG VOOR</span>
+        <ul class="mt-2 space-y-1.5">
+          <li class="flex items-center gap-1.5 text-[13px] text-slate-200 font-medium"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#00F5A0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Medewerkers</li>
+          <li class="flex items-center gap-1.5 text-[13px] text-slate-200 font-medium"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#00F5A0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Management</li>
+          <li class="flex items-center gap-1.5 text-[13px] text-slate-200 font-medium"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#00F5A0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Directie</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VOORBEELD: DE ZORGSECTOR ============ -->
+<section class="grain relative overflow-hidden border-y border-white/[0.06] bg-navy-950 py-20 md:py-28">
+  <div class="relative z-10 max-w-[1240px] mx-auto px-6 lg:px-10">
+    <div class="reveal max-w-[640px] mb-14">
+      <p class="eyebrow text-mint">VOORBEELD &nbsp;·&nbsp; DE ZORGSECTOR</p>
+      <h2 class="h2 text-white mt-4">Zeggenschap speelt overal — in de zorg is de urgentie nu extra zichtbaar</h2>
+      <p class="body-lg text-slate-300 mt-5">Humeo werkt sectorbreed. Deze drie cijfers laten zien waarom de zorg, als voorbeeld, nu zo'n directe aanleiding biedt.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-3 gap-6">
+      <div class="reveal card-dark card-hover d1 rounded-[20px] p-7">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center mb-5 border border-mint/40 text-mint font-bold text-[15px]">1</div>
+        <p class="text-xl font-bold text-white">Zeggenschap</p>
+        <p class="body-base text-slate-400 mt-2.5">Meepraten, meebepalen en invloed uitoefenen — één van de belangrijkste knoppen waar zorgorganisaties aan kunnen en moeten draaien.</p>
+        <p class="eyebrow text-slate-500 mt-4 !text-[11px]">— NVZ, 2026</p>
+      </div>
+
+      <div class="reveal card-dark card-hover d2 rounded-[20px] p-7">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center mb-5 border border-cyan/40 text-cyan font-bold text-[15px]">2</div>
+        <p class="stat-num count-up text-3xl font-bold text-white">8,1%</p>
+        <p class="body-base text-slate-400 mt-2.5">Ziekteverzuim in de zorg, het op een na hoogste niveau in 25 jaar — in het eerste kwartaal van 2026.</p>
+        <p class="eyebrow text-slate-500 mt-4 !text-[11px]">— Skipr, juni 2026</p>
+      </div>
+
+      <div class="reveal card-dark card-hover d3 rounded-[20px] p-7">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center mb-5 border border-mint/40 text-mint font-bold text-[15px]">3</div>
+        <p class="stat-num count-up text-3xl font-bold text-white">±€30.000</p>
+        <p class="body-base text-slate-400 mt-2.5">Gemiddelde kosten van ziekteverzuim en uitval, per zorgmedewerker.</p>
+        <p class="eyebrow text-slate-500 mt-4 !text-[11px]">— Rijksoverheid, 2026</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AANPAK: ZES STAPPEN ============ -->
+<section id="aanpak" class="bg-ice py-24 md:py-32">
+  <div class="max-w-[1240px] mx-auto px-6 lg:px-10">
+    <div class="reveal max-w-[640px] mb-16">
+      <p class="eyebrow text-cyan-600" style="color:#0089A8;">DE AANPAK</p>
+      <h2 class="h2 text-navy-950 mt-4">Eén aanpak, in zes heldere stappen</h2>
+      <p class="body-lg text-slate-600 mt-5">Geen ingewikkeld veranderprogramma — wel een concrete, herhaalbare manier om zeggenschap binnen jouw organisatie te vergroten. Klik een stap aan.</p>
+    </div>
+
+    <div class="reveal grain relative overflow-hidden rounded-[28px] border border-white/10" style="background: linear-gradient(155deg, var(--navy-900), var(--navy-950));">
+      <div class="glow-blob w-[420px] h-[420px] -top-40 -right-32 bg-cyan/15"></div>
+      <div class="glow-blob w-[360px] h-[360px] -bottom-32 -left-24 bg-mint/10"></div>
+
+      <div class="relative z-10 grid md:grid-cols-[300px_1fr]">
+
+        <div id="stepList" class="flex md:flex-col overflow-x-auto md:overflow-visible border-b md:border-b-0 md:border-r border-white/10 p-3 md:p-5 gap-1.5" role="tablist" aria-label="Stappen van de aanpak">
+          <button type="button" class="step-btn is-active" data-step="0" role="tab" aria-selected="true">
+            <span class="step-num">1</span>
+            <span class="step-label">Kennismaking</span>
+          </button>
+          <button type="button" class="step-btn" data-step="1" role="tab" aria-selected="false">
+            <span class="step-num">2</span>
+            <span class="step-label">Thermometer</span>
+          </button>
+          <button type="button" class="step-btn" data-step="2" role="tab" aria-selected="false">
+            <span class="step-num">3</span>
+            <span class="step-label">Workshop</span>
+          </button>
+          <button type="button" class="step-btn" data-step="3" role="tab" aria-selected="false">
+            <span class="step-num">4</span>
+            <span class="step-label">Terugkoppeling</span>
+          </button>
+          <button type="button" class="step-btn" data-step="4" role="tab" aria-selected="false">
+            <span class="step-num">5</span>
+            <span class="step-label">Workshops</span>
+          </button>
+          <button type="button" class="step-btn" data-step="5" role="tab" aria-selected="false">
+            <span class="step-num">6</span>
+            <span class="step-label">KPI-monitoring</span>
+          </button>
+        </div>
+
+        <div class="p-8 md:p-14 flex flex-col justify-center min-h-[280px] md:min-h-[340px]">
+          <p id="stepPhase" class="eyebrow text-mint mb-5">PILOT</p>
+          <div id="stepPanels">
+            <div class="step-panel is-active" data-step="0">
+              <h3 class="h2 !text-[1.9rem] sm:!text-[2.1rem] text-white">Kennismaking</h3>
+              <p class="body-lg text-slate-300 mt-4 max-w-[480px]">We bespreken met het management team wat er speelt, waar de drukte zit en welke workshop daar het beste op aansluit.</p>
+            </div>
+            <div class="step-panel" data-step="1">
+              <h3 class="h2 !text-[1.9rem] sm:!text-[2.1rem] text-white">Thermometer</h3>
+              <p class="body-lg text-slate-300 mt-4 max-w-[480px]">We halen op wat er écht speelt in het team: waar loopt het vast, en wat is er nodig om de workshop voor te bereiden?</p>
+            </div>
+            <div class="step-panel" data-step="2">
+              <h3 class="h2 !text-[1.9rem] sm:!text-[2.1rem] text-white">Workshop</h3>
+              <p class="body-lg text-slate-300 mt-4 max-w-[480px]">Het team brainstormt: wie pakt iets concreet op, en wat heeft diegene nodig om dat te realiseren?</p>
+            </div>
+            <div class="step-panel" data-step="3">
+              <h3 class="h2 !text-[1.9rem] sm:!text-[2.1rem] text-white">Terugkoppeling</h3>
+              <p class="body-lg text-slate-300 mt-4 max-w-[480px]">We koppelen terug wat er speelt en welke acties al klaarstaan — met een data-analyse als routekaart voor de vervolgstappen.</p>
+            </div>
+            <div class="step-panel" data-step="4">
+              <h3 class="h2 !text-[1.9rem] sm:!text-[2.1rem] text-white">Workshops</h3>
+              <p class="body-lg text-slate-300 mt-4 max-w-[480px]">De geïdentificeerde uitdagingen worden omgezet in concrete acties en workshops die bijdragen aan duurzame verbetering.</p>
+            </div>
+            <div class="step-panel" data-step="5">
+              <h3 class="h2 !text-[1.9rem] sm:!text-[2.1rem] text-white">Actief KPI-monitoring</h3>
+              <p class="body-lg text-slate-300 mt-4 max-w-[480px]">Doorlopend inzicht in de effectiviteit van verbeterinitiatieven, met datagedreven dashboards om op resultaat te sturen.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ACTIEF KPI-MONITORING ============ -->
+<section id="dashboard" class="grain relative overflow-hidden bg-navy-950 py-24 md:py-32">
+  <div class="glow-blob w-[460px] h-[460px] top-1/3 left-1/2 -translate-x-1/2 bg-cyan/10"></div>
+
+  <div class="relative z-10 max-w-[1240px] mx-auto px-6 lg:px-10">
+    <div class="reveal max-w-[640px] mb-14">
+      <p class="eyebrow text-cyan">ACTIEF KPI-MONITORING</p>
+      <h2 class="h2 text-white mt-4">Zie wat zeggenschap oplevert</h2>
+      <p class="body-lg text-slate-300 mt-5">Doorlopend inzicht in de effectiviteit van verbeterinitiatieven — met datagedreven dashboards om op resultaat te sturen.</p>
+    </div>
+
+    <div class="reveal relative">
+      <!-- callouts -->
+      <div class="hidden lg:block absolute -left-8 top-16 z-20 -translate-x-full text-right">
+        <p class="eyebrow !text-[13px] text-mint">ZEGGENSCHAPSCORE OMHOOG</p>
+        <p class="text-[15px] text-slate-300 mt-1.5 max-w-[200px] leading-snug">Elk kwartaal opnieuw gemeten via de thermometer</p>
+      </div>
+      <div class="hidden lg:block absolute -right-8 bottom-24 z-20 translate-x-full">
+        <p class="eyebrow !text-[13px] text-cyan">MINDER VERZUIM</p>
+        <p class="text-[15px] text-slate-300 mt-1.5 max-w-[200px] leading-snug">Vergeleken met het sectorgemiddelde</p>
+      </div>
+
+      <div class="rounded-[24px] overflow-hidden card-light card-hover text-left">
+        <div class="flex items-center gap-2 px-5 py-3.5 border-b border-slate-200/80 bg-slate-50">
+          <span class="w-2.5 h-2.5 rounded-full bg-slate-300"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-slate-300"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-slate-300"></span>
+          <span class="ml-3 text-[12px] font-mono text-slate-400">app.humeo.nl/dashboard</span>
+        </div>
+
+        <div class="grid grid-cols-[180px_1fr] sm:grid-cols-[200px_1fr]">
+          <div class="hidden sm:flex flex-col gap-1 p-4 border-r border-slate-200/80 bg-slate-50/60">
+            <span class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-[13px] font-semibold text-navy-950" style="background: linear-gradient(90deg, rgba(0,245,160,0.12), rgba(0,180,216,0.10)); border-left: 2px solid #00B4D8;">Dashboard</span>
+            <span class="px-3 py-2.5 rounded-lg text-[13px] font-medium text-slate-500">Zeggenschap</span>
+            <span class="px-3 py-2.5 rounded-lg text-[13px] font-medium text-slate-500">Verzuim</span>
+            <span class="px-3 py-2.5 rounded-lg text-[13px] font-medium text-slate-500">Acties</span>
+            <span class="px-3 py-2.5 rounded-lg text-[13px] font-medium text-slate-500">Workshops</span>
+          </div>
+
+          <div class="p-5 sm:p-7">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-6">
+              <div class="rounded-xl border border-slate-200 p-4">
+                <p class="text-[11px] font-medium text-slate-500">Zeggenschapscore</p>
+                <p class="stat-num count-up text-2xl font-semibold text-navy-950 mt-1">7,8</p>
+              </div>
+              <div class="rounded-xl border border-slate-200 p-4">
+                <p class="text-[11px] font-medium text-slate-500">Verzuim dit kwartaal</p>
+                <p class="stat-num count-up text-2xl font-semibold text-navy-950 mt-1">5,2%</p>
+              </div>
+              <div class="rounded-xl border border-slate-200 p-4">
+                <p class="text-[11px] font-medium text-slate-500">Acties afgerond</p>
+                <p class="stat-num count-up text-2xl font-semibold text-navy-950 mt-1">9</p>
+              </div>
+            </div>
+
+            <p class="text-[12px] font-semibold text-slate-400 mb-2.5">VOORTGANG ACTIES</p>
+            <div class="space-y-2">
+              <div class="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-slate-200 px-4 py-3">
+                <div class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-full flex items-center justify-center text-[11px] font-semibold text-white shrink-0" style="background: linear-gradient(135deg, var(--mint), var(--cyan));">KC</span>
+                  <span class="text-[13px] font-medium text-navy-950 whitespace-nowrap">Onboarding herzien · Klantenservice</span>
+                </div>
+                <span class="flex items-center gap-1 text-[12px] font-semibold text-emerald-600"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Afgerond</span>
+              </div>
+              <div class="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-slate-200 px-4 py-3">
+                <div class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-full flex items-center justify-center text-[11px] font-semibold text-white shrink-0" style="background: linear-gradient(135deg, #94A3B8, #64759A);">ST</span>
+                  <span class="text-[13px] font-medium text-navy-950 whitespace-nowrap">Overdracht-protocol · Supportteam</span>
+                </div>
+                <span class="text-[12px] font-semibold px-3 py-1.5 rounded-lg text-cyan-700" style="background: rgba(0,180,216,0.12);">In uitvoering</span>
+              </div>
+              <div class="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-slate-200 px-4 py-3">
+                <div class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-full flex items-center justify-center text-[11px] font-semibold text-white shrink-0" style="background: linear-gradient(135deg, #94A3B8, #64759A);">OP</span>
+                  <span class="text-[13px] font-medium text-navy-950 whitespace-nowrap">Dienstroosters team B · Operations</span>
+                </div>
+                <span class="text-[12px] font-semibold px-3 py-1.5 rounded-lg text-slate-500" style="background: rgba(100,117,154,0.12);">Gepland</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SIGNATURE: TWEE CIRKELS ============ -->
+<section id="voorwie" class="relative overflow-hidden bg-navy-900 py-24 md:py-32">
+  <div class="relative max-w-[1240px] mx-auto px-6 lg:px-10">
+    <div class="reveal max-w-[600px] mx-auto text-center mb-16 md:mb-24">
+      <p class="eyebrow text-mint">DE KERN VAN ONZE AANPAK</p>
+      <h2 class="h2 text-white mt-4">Het mes snijdt aan twee kanten.</h2>
+      <p class="body-lg text-slate-300 mt-5">Door te focussen op zeggenschap verbeteren we de situatie voor medewerkers én voor management en directie — gelijktijdig.</p>
+    </div>
+
+    <div class="reveal relative grid grid-cols-1 md:grid-cols-2 gap-y-10 md:gap-y-14 md:gap-x-0 max-w-[920px] mx-auto">
+
+      <div class="absolute hidden md:block left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[260px] h-[260px] rounded-full blur-[50px] opacity-60 pointer-events-none" style="background: radial-gradient(circle, rgba(0,245,160,0.35), rgba(0,180,216,0.25) 55%, transparent 75%);"></div>
+
+      <div class="order-1 md:order-none relative z-10 pl-6 pr-6 md:pl-10 md:pr-24 text-center md:text-right">
+        <p class="eyebrow text-mint mb-4">VOOR MEDEWERKERS</p>
+        <ul class="space-y-3">
+          <li class="body-base text-slate-200">Meer invloed op het eigen werk</li>
+          <li class="body-base text-slate-200">Ruimte om zelf een vraagstuk op te pakken</li>
+          <li class="body-base text-slate-200">Minder druk, meer werkplezier</li>
+        </ul>
+      </div>
+
+      <div class="order-3 md:order-none relative z-10 pl-6 pr-6 md:pl-24 md:pr-10 text-center md:text-left">
+        <p class="eyebrow text-cyan mb-4">VOOR MANAGEMENT &amp; DIRECTIE</p>
+        <ul class="space-y-3">
+          <li class="body-base text-slate-200">Concreet zicht op wat er speelt</li>
+          <li class="body-base text-slate-200">Taken structureel verdeeld in het team</li>
+          <li class="body-base text-slate-200">Sturen op resultaat met harde data</li>
+        </ul>
+      </div>
+
+      <div class="order-2 md:order-none relative md:absolute my-2 md:my-0 mx-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 z-20 w-[104px] h-[104px] rounded-full flex items-center justify-center text-center shadow-[0_20px_50px_-12px_rgba(0,180,216,0.5)]" style="background: linear-gradient(140deg, var(--mint), var(--cyan));">
+        <span class="text-[13px] font-bold text-navy-950 leading-tight">Humeo</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WAT ONDERZOEK LAAT ZIEN ============ -->
+<section class="bg-ice py-24 md:py-32">
+  <div class="reveal max-w-[760px] mx-auto px-6 text-center">
+    <p class="eyebrow mb-7" style="color:#0089A8;">WAT ONDERZOEK LAAT ZIEN</p>
+    <svg width="34" height="26" viewBox="0 0 34 26" fill="none" class="mx-auto mb-7"><path d="M14.4 0C6.5 2.9 0 9.8 0 17.9 0 22.4 3.3 26 7.7 26c4.2 0 7.3-3.2 7.3-7.2 0-3.7-2.6-6.6-6.1-6.9C9.9 8 12.7 5 16.6 3.4L14.4 0zm17.1 0c-7.9 2.9-14.4 9.8-14.4 17.9 0 4.5 3.3 8.1 7.7 8.1 4.2 0 7.3-3.2 7.3-7.2 0-3.7-2.6-6.6-6.1-6.9C27 8 29.8 5 33.7 3.4L31.5 0z" fill="#00B4D8"/></svg>
+    <p class="h2 !text-[1.6rem] sm:!text-[1.85rem] !leading-[1.45] !font-medium text-navy-950">Autonomie is, naast competentie en verbondenheid, een van de drie psychologische basisbehoeften die motivatie en werkplezier op het werk bepalen.</p>
+    <p class="eyebrow text-slate-500 mt-6 !text-[11px]">— Zelfdeterminatietheorie, Deci &amp; Ryan</p>
+  </div>
+</section>
+
+<!-- ============ HET TEAM ============ -->
+<section id="team" class="bg-ice py-24 md:py-32">
+  <div class="max-w-[1100px] mx-auto px-6 lg:px-10">
+    <div class="reveal max-w-[600px] mx-auto text-center mb-16">
+      <p class="eyebrow" style="color:#0089A8;">HET TEAM</p>
+      <h2 class="h2 text-navy-950 mt-4">De mensen achter Humeo</h2>
+      <p class="body-lg text-slate-600 mt-5">Een klein team met een duidelijke missie: organisaties helpen om zeggenschap en werkplezier merkbaar te vergroten.</p>
+    </div>
+
+    <div class="flex flex-col items-center gap-y-16">
+
+      <div class="flex flex-wrap justify-center gap-x-12 gap-y-16">
+        <div class="reveal d1 flex flex-col items-center text-center w-[180px]">
+          <div class="avatar-ring relative w-[168px] h-[168px] rounded-full overflow-hidden mb-5">
+            <img src="assets/team/michiel-van-etten.png" alt="Michiel van Etten" class="absolute inset-0 w-full h-full object-cover" style="object-position: center 15%;">
+          </div>
+          <h3 class="h3 text-navy-950">Michiel van Etten</h3>
+          <p class="eyebrow mt-1.5" style="color:#0089A8;">STRATEGY LEAD</p>
+        </div>
+
+        <div class="reveal d2 flex flex-col items-center text-center w-[180px]">
+          <div class="avatar-ring relative w-[168px] h-[168px] rounded-full overflow-hidden mb-5">
+            <img src="assets/team/twan-vermeulen.png" alt="Twan Vermeulen" class="absolute inset-0 w-full h-full object-cover" style="object-position: center 22%;">
+          </div>
+          <h3 class="h3 text-navy-950">Twan Vermeulen</h3>
+          <p class="eyebrow mt-1.5" style="color:#0089A8;">TECH LEAD</p>
+        </div>
+
+        <div class="reveal d3 flex flex-col items-center text-center w-[180px]">
+          <div class="avatar-ring relative w-[168px] h-[168px] rounded-full overflow-hidden mb-5">
+            <img src="assets/team/marc-van-rooijen.png" alt="Marc van Rooijen" class="absolute inset-0 w-full h-full object-cover" style="object-position: center 15%;">
+          </div>
+          <h3 class="h3 text-navy-950">Marc van Rooijen</h3>
+          <p class="eyebrow mt-1.5" style="color:#0089A8;">PRODUCT LEAD</p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-x-12 gap-y-16">
+        <div class="reveal d1 flex flex-col items-center text-center w-[180px]">
+          <div class="avatar-ring relative w-[168px] h-[168px] rounded-full overflow-hidden mb-5">
+            <img src="assets/team/rowena-wolf.png" alt="Rowena Wolf" class="absolute inset-0 w-full h-full object-cover" style="object-position: center 0%;">
+          </div>
+          <h3 class="h3 text-navy-950">Rowena Wolf</h3>
+          <p class="eyebrow mt-1.5" style="color:#0089A8;">PARTNERSHIP LEAD</p>
+        </div>
+
+        <div class="reveal d2 flex flex-col items-center text-center w-[180px]">
+          <div class="avatar-ring relative w-[168px] h-[168px] rounded-full overflow-hidden mb-5">
+            <img src="assets/team/roel-freriks.png" alt="Roel Freriks" class="absolute inset-0 w-full h-full object-cover" style="object-position: center 15%;">
+          </div>
+          <h3 class="h3 text-navy-950">Roel Freriks</h3>
+          <p class="eyebrow mt-1.5" style="color:#0089A8;">ADVISEUR</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA BANNER ============ -->
+<section id="contact" class="bg-navy-950 py-20 md:py-28 px-6">
+  <div class="reveal grain relative overflow-hidden max-w-[1100px] mx-auto rounded-[28px] px-8 sm:px-14 py-16 text-center" style="background: linear-gradient(155deg, var(--navy-900), var(--navy-950));border: 1px solid rgba(255,255,255,0.08);">
+    <div class="glow-blob w-[420px] h-[420px] -bottom-48 left-1/2 -translate-x-1/2 bg-mint/15"></div>
+    <div class="relative z-10">
+      <h2 class="h2 text-white max-w-[520px] mx-auto">Plan een kennismaking</h2>
+      <p class="body-lg text-slate-300 mt-5 max-w-[440px] mx-auto">In een gesprek van 20 minuten bespreken we wat er speelt binnen jouw organisatie — en of de pilot van 6 stappen daarbij past.</p>
+      <div class="flex flex-wrap justify-center gap-4 mt-9">
+        <a href="mailto:info@humeo.nl" class="btn btn-primary">Plan een kennismaking</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="border-t border-white/[0.06] bg-navy-950">
+  <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-16">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr] gap-12">
+      <div>
+        <img src="assets/logo-color.svg" alt="Humeo" class="h-6 w-auto mb-4">
+        <p class="text-[14px] text-slate-500 max-w-[260px] leading-relaxed">Digitaal leiderschap dat zeggenschap en werkplezier merkbaar vergroot.</p>
+      </div>
+      <div>
+        <p class="eyebrow text-slate-500 mb-4">AANPAK</p>
+        <ul class="space-y-2.5 text-[14px] text-slate-400">
+          <li><a href="#aanpak" class="hover:text-white transition-colors">Kennismaking &amp; thermometer</a></li>
+          <li><a href="#aanpak" class="hover:text-white transition-colors">Workshops</a></li>
+          <li><a href="#dashboard" class="hover:text-white transition-colors">KPI-monitoring</a></li>
+          <li><a href="#voorwie" class="hover:text-white transition-colors">Voor wie</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow text-slate-500 mb-4">BEDRIJF</p>
+        <ul class="space-y-2.5 text-[14px] text-slate-400">
+          <li><a href="#team" class="hover:text-white transition-colors">Over ons</a></li>
+          <li><a href="#contact" class="hover:text-white transition-colors">Carrières</a></li>
+          <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow text-slate-500 mb-4">VOLG ONS</p>
+        <div class="flex items-center gap-3">
+          <a href="https://www.linkedin.com/company/myhumeo" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="w-9 h-9 rounded-lg border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-white/20 transition-colors">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C3.34 3.5 2 4.84 2 6.48s1.34 2.98 2.98 2.98S7.96 8.12 7.96 6.48 6.62 3.5 4.98 3.5zM2.4 21.5h5.16V8.98H2.4V21.5zM10 8.98h4.95v1.72h.07c.69-1.2 2.07-2.04 4.06-2.04 4.34 0 5.14 2.55 5.14 6.86v7h-5.16v-6.21c0-1.5-.03-3.42-2.08-3.42-2.08 0-2.4 1.62-2.4 3.31v6.32H10V8.98z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mt-14 pt-8 border-t border-white/[0.06]">
+      <p class="text-[13px] text-slate-500">© 2026 Humeo B.V. Alle rechten voorbehouden.</p>
+      <div class="flex items-center gap-6 text-[13px] text-slate-500">
+        <a href="#" class="hover:text-white transition-colors">Privacy</a>
+        <a href="#" class="hover:text-white transition-colors">Voorwaarden</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const introOverlay = document.getElementById('introOverlay');
+  if (introOverlay) {
+    introOverlay.addEventListener('animationend', (e) => {
+      if (e.animationName === 'introFadeOut') introOverlay.remove();
+    });
+  }
+
+  const stepBtns = document.querySelectorAll('.step-btn');
+  const stepPanels = document.querySelectorAll('.step-panel');
+  const stepPhase = document.getElementById('stepPhase');
+  const stepPhases = ['PILOT', 'PILOT', 'PILOT', 'PILOT', 'VERVOLGTRAJECT · 6–12 MAANDEN', 'VERVOLGTRAJECT · 6–12 MAANDEN'];
+  stepBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const idx = btn.dataset.step;
+      stepBtns.forEach((b) => {
+        const active = b === btn;
+        b.classList.toggle('is-active', active);
+        b.setAttribute('aria-selected', String(active));
+      });
+      stepPanels.forEach((p) => p.classList.toggle('is-active', p.dataset.step === idx));
+      stepPhase.textContent = stepPhases[Number(idx)];
+    });
+  });
+
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const iconOpen = document.getElementById('menuIconOpen');
+  const iconClose = document.getElementById('menuIconClose');
+
+  function setMenuOpen(open) {
+    mobileMenu.classList.toggle('hidden', !open);
+    iconOpen.classList.toggle('hidden', open);
+    iconClose.classList.toggle('hidden', !open);
+    menuBtn.setAttribute('aria-expanded', String(open));
+    document.body.classList.toggle('overflow-hidden', open);
+  }
+
+  menuBtn.addEventListener('click', () => {
+    setMenuOpen(mobileMenu.classList.contains('hidden'));
+  });
+
+  mobileMenu.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => setMenuOpen(false));
+  });
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach((el) => io.observe(el));
+
+  // Sticky nav: hide on scroll down, show on scroll up
+  const header = document.querySelector('header');
+  let lastY = window.scrollY;
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const y = window.scrollY;
+      if (y > lastY && y > 80) {
+        header.classList.add('nav-hidden');
+      } else {
+        header.classList.remove('nav-hidden');
+      }
+      lastY = y;
+      ticking = false;
+    });
+  }, { passive: true });
+
+  // Count-up animation for stat numbers
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function animateCount(el) {
+    const raw = el.textContent.trim();
+    const match = raw.match(/^([^\d]*)([\d.,]+)(.*)$/);
+    if (!match) return;
+    const [, prefix, numStr, suffix] = match;
+    const decimals = numStr.includes(',') ? numStr.split(',')[1].length : 0;
+    const target = parseFloat(numStr.replace(/\./g, '').replace(',', '.'));
+    if (isNaN(target)) return;
+    if (reduceMotion) return;
+    const duration = 1100;
+    const start = performance.now();
+    function tick(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = prefix + (target * eased).toFixed(decimals).replace('.', ',') + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+      else el.textContent = raw;
+    }
+    el.textContent = prefix + (0).toFixed(decimals).replace('.', ',') + suffix;
+    requestAnimationFrame(tick);
+  }
+  const countEls = document.querySelectorAll('.count-up');
+  const countIo = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        animateCount(entry.target);
+        countIo.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  countEls.forEach((el) => countIo.observe(el));
+</script>
+</body>
+</html>
