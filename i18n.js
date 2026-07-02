@@ -146,7 +146,7 @@
       'hero.h1.line1': 'More autonomy.',
       'hero.h1.line2': 'More job satisfaction.',
       'hero.paragraph': 'When employees experience little influence over their work, job satisfaction, engagement and ownership decline. Humeo increases autonomy for employees, management and leadership, all at the same time.',
-      'hero.tagline': 'PILOT IN 6 STEPS · AUTONOMY AS A LEVER · WITHOUT COMPLEXITY',
+      'hero.tagline': 'PILOT IN 6 STEPS · AUTONOMY AS LEVERAGE · WITHOUT COMPLEXITY',
       'hero.card1.eyebrow': 'THE MOST IMPORTANT LEVER',
       'hero.card1.title': 'Autonomy',
       'hero.card1.text': 'Having a say, co-deciding, exerting influence',
