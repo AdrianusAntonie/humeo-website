@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Humeo | Meer zeggenschap, meer werkplezier</title>
-<meta name="description" content="Humeo helpt organisaties zeggenschap en werkplezier vergroten onder medewerkers, management en directie, met een heldere aanpak in 6 stappen.">
+<title data-i18n="meta.index.title">Humeo | Meer zeggenschap, meer werkplezier</title>
+<meta name="description" data-i18n-attr="content:meta.index.description" content="Humeo helpt organisaties zeggenschap en werkplezier vergroten onder medewerkers, management en directie, met een heldere aanpak in 6 stappen.">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
@@ -14,6 +14,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 
 <script src="https://cdn.tailwindcss.com"></script>
+<script src="i18n.js"></script>
 <script>
   tailwind.config = {
     theme: {
@@ -102,6 +103,35 @@
     color: var(--navy-950);
   }
   .btn-ghost-light:hover { background: #fff; border-color: #94A3B8; transform: translateY(-2px); box-shadow: 0 8px 20px -8px rgba(15,23,42,0.18); }
+
+  /* ---------- Language toggle ---------- */
+  .lang-toggle { position: relative; display: inline-flex; align-items: center; border-radius: 9999px; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.03); padding: 3px; cursor: pointer; }
+  .lang-slider {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    bottom: 3px;
+    border-radius: 9999px;
+    background: linear-gradient(100deg, var(--mint), var(--cyan));
+    box-shadow: 0 4px 10px -4px rgba(0,180,216,0.4);
+    transition: transform 320ms cubic-bezier(.16,.84,.32,1);
+    will-change: transform;
+    pointer-events: none;
+  }
+  .lang-btn {
+    position: relative;
+    z-index: 1;
+    font-family: '"JetBrains Mono"', ui-monospace, monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 0.32rem 0.65rem;
+    border-radius: 9999px;
+    color: rgba(255,255,255,0.5);
+    transition: color 220ms ease;
+  }
+  .lang-btn:hover { color: rgba(255,255,255,0.85); }
+  .lang-btn.is-active { color: var(--navy-950); }
 
   /* ---------- Surfaces ---------- */
   .card-light {
@@ -314,7 +344,7 @@
   </div>
 </div>
 
-<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-cyan focus:text-navy-950 focus:px-4 focus:py-2 focus:rounded-lg">Direct naar inhoud</a>
+<a href="#main" data-i18n="skip.content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-cyan focus:text-navy-950 focus:px-4 focus:py-2 focus:rounded-lg">Direct naar inhoud</a>
 
 <!-- ============ NAV ============ -->
 <header class="fixed top-4 left-4 right-4 sm:left-6 sm:right-6 lg:left-8 lg:right-8 z-50 flex justify-center">
@@ -324,30 +354,40 @@
         <img src="assets/logo-color.svg" alt="Humeo" class="h-7 w-auto">
       </a>
 
-      <nav class="hidden md:flex items-center gap-7" aria-label="Hoofdnavigatie">
-        <a href="#aanpak" class="body-base text-[14px] font-medium text-slate-300 hover:text-white transition-colors">Aanpak</a>
-        <a href="#voorwie" class="body-base text-[14px] font-medium text-slate-300 hover:text-white transition-colors">Voor wie</a>
+      <nav class="hidden md:flex items-center gap-7" data-i18n-attr="aria-label:aria.hoofdnav" aria-label="Hoofdnavigatie">
+        <a href="#aanpak" data-i18n="nav.aanpak" class="body-base text-[14px] font-medium text-slate-300 hover:text-white transition-colors">Aanpak</a>
+        <a href="#voorwie" data-i18n="nav.voorwie" class="body-base text-[14px] font-medium text-slate-300 hover:text-white transition-colors">Voor wie</a>
         <span class="w-px h-4 bg-white/15" aria-hidden="true"></span>
-        <a href="#team" class="body-base text-[14px] font-medium text-slate-300 hover:text-white transition-colors">Over ons</a>
-        <a href="#contact" class="body-base text-[14px] font-medium text-slate-300 hover:text-white transition-colors">Contact</a>
+        <a href="#team" data-i18n="nav.overons" class="body-base text-[14px] font-medium text-slate-300 hover:text-white transition-colors">Over ons</a>
+        <a href="#contact" data-i18n="nav.contact" class="body-base text-[14px] font-medium text-slate-300 hover:text-white transition-colors">Contact</a>
       </nav>
 
       <div class="hidden md:flex items-center gap-3">
-        <a href="#contact" class="btn btn-primary !rounded-full !py-2.5 !px-5 !text-[14px]">Plan een kennismaking</a>
+        <div class="lang-toggle" role="group" data-i18n-attr="aria-label:aria.taal" aria-label="Taal">
+          <span class="lang-slider" aria-hidden="true"></span>
+          <button type="button" data-lang-btn="nl" class="lang-btn">NL</button>
+          <button type="button" data-lang-btn="en" class="lang-btn">EN</button>
+        </div>
+        <a href="#contact" data-i18n="cta.plan" class="btn btn-primary !rounded-full !py-2.5 !px-5 !text-[14px]">Plan een kennismaking</a>
       </div>
 
-      <button id="menuBtn" type="button" aria-label="Menu openen" aria-expanded="false" aria-controls="mobileMenu" class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/5 border border-white/10 text-white">
+      <button id="menuBtn" type="button" data-i18n-attr="aria-label:aria.menuopen" aria-label="Menu openen" aria-expanded="false" aria-controls="mobileMenu" class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/5 border border-white/10 text-white">
         <svg id="menuIconOpen" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
         <svg id="menuIconClose" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" class="hidden"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
       </button>
     </div>
 
     <div id="mobileMenu" class="hidden md:hidden border-t border-white/10 px-6 py-5 flex flex-col gap-4">
-      <a href="#aanpak" class="body-base font-medium text-slate-200">Aanpak</a>
-      <a href="#voorwie" class="body-base font-medium text-slate-200">Voor wie</a>
-      <a href="#team" class="body-base font-medium text-slate-200">Over ons</a>
-      <a href="#contact" class="body-base font-medium text-slate-200">Contact</a>
-      <a href="#contact" class="btn btn-primary !rounded-full w-full mt-2">Plan een kennismaking</a>
+      <a href="#aanpak" data-i18n="nav.aanpak" class="body-base font-medium text-slate-200">Aanpak</a>
+      <a href="#voorwie" data-i18n="nav.voorwie" class="body-base font-medium text-slate-200">Voor wie</a>
+      <a href="#team" data-i18n="nav.overons" class="body-base font-medium text-slate-200">Over ons</a>
+      <a href="#contact" data-i18n="nav.contact" class="body-base font-medium text-slate-200">Contact</a>
+      <div class="lang-toggle self-start" role="group" data-i18n-attr="aria-label:aria.taal" aria-label="Taal">
+        <span class="lang-slider" aria-hidden="true"></span>
+        <button type="button" data-lang-btn="nl" class="lang-btn">NL</button>
+        <button type="button" data-lang-btn="en" class="lang-btn">EN</button>
+      </div>
+      <a href="#contact" data-i18n="cta.plan" class="btn btn-primary !rounded-full w-full mt-2">Plan een kennismaking</a>
     </div>
   </div>
 </header>
@@ -362,22 +402,22 @@
     <div class="min-w-0 [container-type:inline-size]">
       <p class="enter enter-1 eyebrow text-mint mb-5 flex items-center gap-2">
         <span class="w-1.5 h-1.5 rounded-full bg-mint inline-block"></span>
-        DIGITAAL&nbsp;LEIDERSCHAP
+        <span data-i18n="hero.eyebrow">DIGITAAL LEIDERSCHAP</span>
       </p>
-      <h1 class="enter enter-2 h1 text-white max-w-[640px]"><span class="block whitespace-nowrap">Meer zeggenschap.</span><span class="block whitespace-nowrap">Meer werkplezier.</span></h1>
-      <p class="enter enter-3 body-lg text-slate-300 mt-6 max-w-[520px]">
+      <h1 id="heroHeading" class="enter enter-2 h1 text-white max-w-[640px]"><span class="block whitespace-nowrap" data-i18n="hero.h1.line1">Meer zeggenschap.</span><span class="block whitespace-nowrap" data-i18n="hero.h1.line2">Meer werkplezier.</span></h1>
+      <p class="enter enter-3 body-lg text-slate-300 mt-6 max-w-[520px]" data-i18n="hero.paragraph">
         Wanneer medewerkers weinig invloed ervaren op hun werk, dalen werkplezier, betrokkenheid en eigenaarschap. Humeo vergroot zeggenschap onder medewerkers, management en directie, gelijktijdig.
       </p>
 
       <div class="enter enter-4 flex flex-wrap items-center gap-4 mt-9">
-        <a href="#contact" class="btn btn-primary">Plan een kennismaking</a>
+        <a href="#contact" data-i18n="cta.plan" class="btn btn-primary">Plan een kennismaking</a>
         <a href="#aanpak" class="btn btn-secondary">
-          Bekijk de aanpak
+          <span data-i18n="cta.bekijk">Bekijk de aanpak</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
       </div>
 
-      <p class="enter enter-5 eyebrow text-slate-500 mt-8 !tracking-[0.1em] !text-[11px]">PILOT IN 6 STAPPEN &nbsp;·&nbsp; ZEGGENSCHAP ALS HEFBOOM &nbsp;·&nbsp; ZONDER COMPLEXITEIT</p>
+      <p class="enter enter-5 eyebrow text-slate-500 mt-8 !tracking-[0.1em] !text-[11px]" data-i18n="hero.tagline">PILOT IN 6 STAPPEN &nbsp;·&nbsp; ZEGGENSCHAP ALS HEFBOOM &nbsp;·&nbsp; ZONDER COMPLEXITEIT</p>
     </div>
 
     <!-- Signature hero visual: interlocking circles + floating context cards -->
@@ -386,17 +426,17 @@
       <div class="absolute left-1/2 top-1/2 -translate-x-[28%] -translate-y-1/2 w-[280px] h-[280px] md:w-[320px] md:h-[320px] ring-circle" style="border-color: rgba(0,180,216,0.5); box-shadow: 0 0 60px -10px rgba(0,180,216,0.3) inset;"></div>
 
       <div class="float-card absolute left-[8%] top-[12%] w-[230px] card-dark rounded-2xl p-4 backdrop-blur-sm">
-        <span class="eyebrow !text-[10px] text-slate-400">DE BELANGRIJKSTE KNOP</span>
-        <p class="text-xl font-bold text-white mt-1.5">Zeggenschap</p>
-        <p class="text-[12px] text-slate-500 mt-1">Meepraten, meebepalen, invloed uitoefenen</p>
+        <span class="eyebrow !text-[10px] text-slate-400" data-i18n="hero.card1.eyebrow">DE BELANGRIJKSTE KNOP</span>
+        <p class="text-xl font-bold text-white mt-1.5" data-i18n="hero.card1.title">Zeggenschap</p>
+        <p class="text-[12px] text-slate-500 mt-1" data-i18n="hero.card1.text">Meepraten, meebepalen, invloed uitoefenen</p>
       </div>
 
       <div class="float-card delay absolute right-[2%] bottom-[16%] w-[210px] card-dark rounded-2xl p-4 backdrop-blur-sm">
-        <span class="eyebrow !text-[10px] text-slate-400">GELIJKTIJDIG VOOR</span>
+        <span class="eyebrow !text-[10px] text-slate-400" data-i18n="hero.card2.eyebrow">GELIJKTIJDIG VOOR</span>
         <ul class="mt-2 space-y-1.5">
-          <li class="flex items-center gap-1.5 text-[13px] text-slate-200 font-medium"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#00F5A0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Medewerkers</li>
-          <li class="flex items-center gap-1.5 text-[13px] text-slate-200 font-medium"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#00F5A0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Management</li>
-          <li class="flex items-center gap-1.5 text-[13px] text-slate-200 font-medium"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#00F5A0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Directie</li>
+          <li class="flex items-center gap-1.5 text-[13px] text-slate-200 font-medium"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#00F5A0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="hero.card2.item1">Medewerkers</span></li>
+          <li class="flex items-center gap-1.5 text-[13px] text-slate-200 font-medium"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#00F5A0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="hero.card2.item2">Management</span></li>
+          <li class="flex items-center gap-1.5 text-[13px] text-slate-200 font-medium"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#00F5A0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="hero.card2.item3">Directie</span></li>
         </ul>
       </div>
     </div>
@@ -407,31 +447,31 @@
 <section class="grain relative overflow-hidden border-y border-white/[0.06] bg-navy-950 py-20 md:py-28">
   <div class="relative z-10 max-w-[1240px] mx-auto px-6 lg:px-10">
     <div class="reveal max-w-[640px] mb-14">
-      <p class="eyebrow text-mint">VOORBEELD &nbsp;·&nbsp; DE ZORGSECTOR</p>
-      <h2 class="h2 text-white mt-4">Zeggenschap speelt overal. In de zorg is de urgentie nu extra zichtbaar</h2>
-      <p class="body-lg text-slate-300 mt-5">Humeo werkt sectorbreed. Deze drie cijfers laten zien waarom de zorg, als voorbeeld, nu zo'n directe aanleiding biedt.</p>
+      <p class="eyebrow text-mint" data-i18n="zorg.eyebrow">VOORBEELD &nbsp;·&nbsp; DE ZORGSECTOR</p>
+      <h2 class="h2 text-white mt-4" data-i18n="zorg.h2">Zeggenschap speelt overal. In de zorg is de urgentie nu extra zichtbaar</h2>
+      <p class="body-lg text-slate-300 mt-5" data-i18n="zorg.paragraph">Humeo werkt sectorbreed. Deze drie cijfers laten zien waarom de zorg, als voorbeeld, nu zo'n directe aanleiding biedt.</p>
     </div>
 
     <div class="grid sm:grid-cols-3 gap-6">
       <div class="reveal card-dark card-hover d1 rounded-[20px] p-7">
         <div class="w-10 h-10 rounded-full flex items-center justify-center mb-5 border border-mint/40 text-mint font-bold text-[15px]">1</div>
-        <p class="text-xl font-bold text-white">Zeggenschap</p>
-        <p class="body-base text-slate-400 mt-2.5">Meepraten, meebepalen en invloed uitoefenen: één van de belangrijkste knoppen waar zorgorganisaties aan kunnen en moeten draaien.</p>
-        <p class="eyebrow text-slate-500 mt-4 !text-[11px]">Bron: NVZ, 2026</p>
+        <p class="text-xl font-bold text-white" data-i18n="zorg.card1.title">Zeggenschap</p>
+        <p class="body-base text-slate-400 mt-2.5" data-i18n="zorg.card1.text">Meepraten, meebepalen en invloed uitoefenen: één van de belangrijkste knoppen waar zorgorganisaties aan kunnen en moeten draaien.</p>
+        <p class="eyebrow text-slate-500 mt-4 !text-[11px]" data-i18n="zorg.card1.source">Bron: NVZ, 2026</p>
       </div>
 
       <div class="reveal card-dark card-hover d2 rounded-[20px] p-7">
         <div class="w-10 h-10 rounded-full flex items-center justify-center mb-5 border border-cyan/40 text-cyan font-bold text-[15px]">2</div>
-        <p class="stat-num count-up text-3xl font-bold text-white">8,1%</p>
-        <p class="body-base text-slate-400 mt-2.5">Ziekteverzuim in de zorg, het op een na hoogste niveau in 25 jaar, in het eerste kwartaal van 2026.</p>
-        <p class="eyebrow text-slate-500 mt-4 !text-[11px]">Bron: Skipr, juni 2026</p>
+        <p class="stat-num count-up text-3xl font-bold text-white" data-value="8.1" data-decimals="1" data-suffix="%">8,1%</p>
+        <p class="body-base text-slate-400 mt-2.5" data-i18n="zorg.card2.text">Ziekteverzuim in de zorg, het op een na hoogste niveau in 25 jaar, in het eerste kwartaal van 2026.</p>
+        <p class="eyebrow text-slate-500 mt-4 !text-[11px]" data-i18n="zorg.card2.source">Bron: Skipr, juni 2026</p>
       </div>
 
       <div class="reveal card-dark card-hover d3 rounded-[20px] p-7">
         <div class="w-10 h-10 rounded-full flex items-center justify-center mb-5 border border-mint/40 text-mint font-bold text-[15px]">3</div>
-        <p class="stat-num count-up text-3xl font-bold text-white">±€30.000</p>
-        <p class="body-base text-slate-400 mt-2.5">Gemiddelde kosten van ziekteverzuim en uitval, per zorgmedewerker.</p>
-        <p class="eyebrow text-slate-500 mt-4 !text-[11px]">Bron: Rijksoverheid, 2026</p>
+        <p class="stat-num count-up text-3xl font-bold text-white" data-value="30000" data-decimals="0" data-prefix="±€">±€30.000</p>
+        <p class="body-base text-slate-400 mt-2.5" data-i18n="zorg.card3.text">Gemiddelde kosten van ziekteverzuim en uitval, per zorgmedewerker.</p>
+        <p class="eyebrow text-slate-500 mt-4 !text-[11px]" data-i18n="zorg.card3.source">Bron: Rijksoverheid, 2026</p>
       </div>
     </div>
   </div>
@@ -441,9 +481,9 @@
 <section id="aanpak" class="bg-ice py-24 md:py-32">
   <div class="max-w-[1240px] mx-auto px-6 lg:px-10">
     <div class="reveal max-w-[640px] mb-16">
-      <p class="eyebrow text-cyan-600" style="color:#0089A8;">DE AANPAK</p>
-      <h2 class="h2 text-navy-950 mt-4">Eén aanpak, in zes heldere stappen</h2>
-      <p class="body-lg text-slate-600 mt-5">Geen ingewikkeld veranderprogramma, wel een concrete, herhaalbare manier om zeggenschap binnen jouw organisatie te vergroten. Klik een stap aan.</p>
+      <p class="eyebrow text-cyan-600" style="color:#0089A8;" data-i18n="aanpak.eyebrow">DE AANPAK</p>
+      <h2 class="h2 text-navy-950 mt-4" data-i18n="aanpak.h2">Eén aanpak, in zes heldere stappen</h2>
+      <p class="body-lg text-slate-600 mt-5" data-i18n="aanpak.paragraph">Geen ingewikkeld veranderprogramma, wel een concrete, herhaalbare manier om zeggenschap binnen jouw organisatie te vergroten. Klik een stap aan.</p>
     </div>
 
     <div class="reveal grain relative overflow-hidden rounded-[28px] border border-white/10" style="background: linear-gradient(155deg, var(--navy-900), var(--navy-950));">
@@ -452,30 +492,30 @@
 
       <div class="relative z-10 grid md:grid-cols-[300px_1fr]">
 
-        <div id="stepList" class="flex md:flex-col overflow-x-auto md:overflow-visible border-b md:border-b-0 md:border-r border-white/10 p-3 md:p-5 gap-1.5" role="tablist" aria-label="Stappen van de aanpak">
+        <div id="stepList" class="flex md:flex-col overflow-x-auto md:overflow-visible border-b md:border-b-0 md:border-r border-white/10 p-3 md:p-5 gap-1.5" role="tablist" data-i18n-attr="aria-label:aria.stappenlijst" aria-label="Stappen van de aanpak">
           <button type="button" class="step-btn is-active" data-step="0" role="tab" aria-selected="true">
             <span class="step-num">1</span>
-            <span class="step-label">Kennismaking</span>
+            <span class="step-label" data-i18n="step1.label">Kennismaking</span>
           </button>
           <button type="button" class="step-btn" data-step="1" role="tab" aria-selected="false">
             <span class="step-num">2</span>
-            <span class="step-label">Thermometer</span>
+            <span class="step-label" data-i18n="step2.label">Thermometer</span>
           </button>
           <button type="button" class="step-btn" data-step="2" role="tab" aria-selected="false">
             <span class="step-num">3</span>
-            <span class="step-label">Workshop</span>
+            <span class="step-label" data-i18n="step3.label">Workshop</span>
           </button>
           <button type="button" class="step-btn" data-step="3" role="tab" aria-selected="false">
             <span class="step-num">4</span>
-            <span class="step-label">Terugkoppeling</span>
+            <span class="step-label" data-i18n="step4.label">Terugkoppeling</span>
           </button>
           <button type="button" class="step-btn" data-step="4" role="tab" aria-selected="false">
             <span class="step-num">5</span>
-            <span class="step-label">Workshops</span>
+            <span class="step-label" data-i18n="step5.label">Workshops</span>
           </button>
           <button type="button" class="step-btn" data-step="5" role="tab" aria-selected="false">
             <span class="step-num">6</span>
-            <span class="step-label">KPI-monitoring</span>
+            <span class="step-label" data-i18n="step6.label">KPI-monitoring</span>
           </button>
         </div>
 
@@ -483,28 +523,28 @@
           <p id="stepPhase" class="eyebrow text-mint mb-5">PILOT</p>
           <div id="stepPanels">
             <div class="step-panel is-active" data-step="0">
-              <h3 class="h2 !text-[1.9rem] sm:!text-[2.1rem] text-white">Kennismaking</h3>
-              <p class="body-lg text-slate-300 mt-4 max-w-[480px]">We bespreken met het management team wat er speelt, waar de drukte zit en welke workshop daar het beste op aansluit.</p>
+              <h3 class="h2 !text-[1.9rem] sm:!text-[2.1rem] text-white" data-i18n="step1.label">Kennismaking</h3>
+              <p class="body-lg text-slate-300 mt-4 max-w-[480px]" data-i18n="step1.text">We bespreken met het management team wat er speelt, waar de drukte zit en welke workshop daar het beste op aansluit.</p>
             </div>
             <div class="step-panel" data-step="1">
-              <h3 class="h2 !text-[1.9rem] sm:!text-[2.1rem] text-white">Thermometer</h3>
-              <p class="body-lg text-slate-300 mt-4 max-w-[480px]">We halen op wat er écht speelt in het team: waar loopt het vast, en wat is er nodig om de workshop voor te bereiden?</p>
+              <h3 class="h2 !text-[1.9rem] sm:!text-[2.1rem] text-white" data-i18n="step2.label">Thermometer</h3>
+              <p class="body-lg text-slate-300 mt-4 max-w-[480px]" data-i18n="step2.text">We halen op wat er écht speelt in het team: waar loopt het vast, en wat is er nodig om de workshop voor te bereiden?</p>
             </div>
             <div class="step-panel" data-step="2">
-              <h3 class="h2 !text-[1.9rem] sm:!text-[2.1rem] text-white">Workshop</h3>
-              <p class="body-lg text-slate-300 mt-4 max-w-[480px]">Het team brainstormt: wie pakt iets concreet op, en wat heeft diegene nodig om dat te realiseren?</p>
+              <h3 class="h2 !text-[1.9rem] sm:!text-[2.1rem] text-white" data-i18n="step3.label">Workshop</h3>
+              <p class="body-lg text-slate-300 mt-4 max-w-[480px]" data-i18n="step3.text">Het team brainstormt: wie pakt iets concreet op, en wat heeft diegene nodig om dat te realiseren?</p>
             </div>
             <div class="step-panel" data-step="3">
-              <h3 class="h2 !text-[1.9rem] sm:!text-[2.1rem] text-white">Terugkoppeling</h3>
-              <p class="body-lg text-slate-300 mt-4 max-w-[480px]">We koppelen terug wat er speelt en welke acties al klaarstaan, met een data-analyse als routekaart voor de vervolgstappen.</p>
+              <h3 class="h2 !text-[1.9rem] sm:!text-[2.1rem] text-white" data-i18n="step4.label">Terugkoppeling</h3>
+              <p class="body-lg text-slate-300 mt-4 max-w-[480px]" data-i18n="step4.text">We koppelen terug wat er speelt en welke acties al klaarstaan, met een data-analyse als routekaart voor de vervolgstappen.</p>
             </div>
             <div class="step-panel" data-step="4">
-              <h3 class="h2 !text-[1.9rem] sm:!text-[2.1rem] text-white">Workshops</h3>
-              <p class="body-lg text-slate-300 mt-4 max-w-[480px]">De geïdentificeerde uitdagingen worden omgezet in concrete acties en workshops die bijdragen aan duurzame verbetering.</p>
+              <h3 class="h2 !text-[1.9rem] sm:!text-[2.1rem] text-white" data-i18n="step5.label">Workshops</h3>
+              <p class="body-lg text-slate-300 mt-4 max-w-[480px]" data-i18n="step5.text">De geïdentificeerde uitdagingen worden omgezet in concrete acties en workshops die bijdragen aan duurzame verbetering.</p>
             </div>
             <div class="step-panel" data-step="5">
-              <h3 class="h2 !text-[1.9rem] sm:!text-[2.1rem] text-white">Actief KPI-monitoring</h3>
-              <p class="body-lg text-slate-300 mt-4 max-w-[480px]">Doorlopend inzicht in de effectiviteit van verbeterinitiatieven, met datagedreven dashboards om op resultaat te sturen.</p>
+              <h3 class="h2 !text-[1.9rem] sm:!text-[2.1rem] text-white" data-i18n="step6.h3">Actief KPI-monitoring</h3>
+              <p class="body-lg text-slate-300 mt-4 max-w-[480px]" data-i18n="dashboard.paragraph">Doorlopend inzicht in de effectiviteit van verbeterinitiatieven, met datagedreven dashboards om op resultaat te sturen.</p>
             </div>
           </div>
         </div>
@@ -520,20 +560,20 @@
 
   <div class="relative z-10 max-w-[1240px] mx-auto px-6 lg:px-10">
     <div class="reveal max-w-[640px] mb-14">
-      <p class="eyebrow text-cyan">ACTIEF KPI-MONITORING</p>
-      <h2 class="h2 text-white mt-4">Zie wat zeggenschap oplevert</h2>
-      <p class="body-lg text-slate-300 mt-5">Doorlopend inzicht in de effectiviteit van verbeterinitiatieven, met datagedreven dashboards om op resultaat te sturen.</p>
+      <p class="eyebrow text-cyan" data-i18n="dashboard.eyebrow">ACTIEF KPI-MONITORING</p>
+      <h2 class="h2 text-white mt-4" data-i18n="dashboard.h2">Zie wat zeggenschap oplevert</h2>
+      <p class="body-lg text-slate-300 mt-5" data-i18n="dashboard.paragraph">Doorlopend inzicht in de effectiviteit van verbeterinitiatieven, met datagedreven dashboards om op resultaat te sturen.</p>
     </div>
 
     <div class="reveal relative">
       <!-- callouts -->
       <div class="hidden lg:block absolute -left-8 top-16 z-20 -translate-x-full text-right">
-        <p class="eyebrow !text-[13px] text-mint">ZEGGENSCHAPSCORE OMHOOG</p>
-        <p class="text-[15px] text-slate-300 mt-1.5 max-w-[200px] leading-snug">Elk kwartaal opnieuw gemeten via de thermometer</p>
+        <p class="eyebrow !text-[13px] text-mint" data-i18n="dashboard.callout1.title">ZEGGENSCHAPSCORE OMHOOG</p>
+        <p class="text-[15px] text-slate-300 mt-1.5 max-w-[200px] leading-snug" data-i18n="dashboard.callout1.text">Elk kwartaal opnieuw gemeten via de thermometer</p>
       </div>
       <div class="hidden lg:block absolute -right-8 bottom-24 z-20 translate-x-full">
-        <p class="eyebrow !text-[13px] text-cyan">MINDER VERZUIM</p>
-        <p class="text-[15px] text-slate-300 mt-1.5 max-w-[200px] leading-snug">Vergeleken met het sectorgemiddelde</p>
+        <p class="eyebrow !text-[13px] text-cyan" data-i18n="dashboard.callout2.title">MINDER VERZUIM</p>
+        <p class="text-[15px] text-slate-300 mt-1.5 max-w-[200px] leading-snug" data-i18n="dashboard.callout2.text">Vergeleken met het sectorgemiddelde</p>
       </div>
 
       <div class="rounded-[24px] overflow-hidden card-light card-hover text-left">
@@ -546,51 +586,51 @@
 
         <div class="grid grid-cols-[180px_1fr] sm:grid-cols-[200px_1fr]">
           <div class="hidden sm:flex flex-col gap-1 p-4 border-r border-slate-200/80 bg-slate-50/60">
-            <span class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-[13px] font-semibold text-navy-950" style="background: linear-gradient(90deg, rgba(0,245,160,0.12), rgba(0,180,216,0.10)); border-left: 2px solid #00B4D8;">Dashboard</span>
-            <span class="px-3 py-2.5 rounded-lg text-[13px] font-medium text-slate-500">Zeggenschap</span>
-            <span class="px-3 py-2.5 rounded-lg text-[13px] font-medium text-slate-500">Verzuim</span>
-            <span class="px-3 py-2.5 rounded-lg text-[13px] font-medium text-slate-500">Acties</span>
-            <span class="px-3 py-2.5 rounded-lg text-[13px] font-medium text-slate-500">Workshops</span>
+            <span class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-[13px] font-semibold text-navy-950" style="background: linear-gradient(90deg, rgba(0,245,160,0.12), rgba(0,180,216,0.10)); border-left: 2px solid #00B4D8;" data-i18n="dashboard.sidebar.dashboard">Dashboard</span>
+            <span class="px-3 py-2.5 rounded-lg text-[13px] font-medium text-slate-500" data-i18n="dashboard.sidebar.zeggenschap">Zeggenschap</span>
+            <span class="px-3 py-2.5 rounded-lg text-[13px] font-medium text-slate-500" data-i18n="dashboard.sidebar.verzuim">Verzuim</span>
+            <span class="px-3 py-2.5 rounded-lg text-[13px] font-medium text-slate-500" data-i18n="dashboard.sidebar.acties">Acties</span>
+            <span class="px-3 py-2.5 rounded-lg text-[13px] font-medium text-slate-500" data-i18n="dashboard.sidebar.workshops">Workshops</span>
           </div>
 
           <div class="p-5 sm:p-7">
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-6">
               <div class="rounded-xl border border-slate-200 p-4">
-                <p class="text-[11px] font-medium text-slate-500">Zeggenschapscore</p>
-                <p class="stat-num count-up text-2xl font-semibold text-navy-950 mt-1">7,8</p>
+                <p class="text-[11px] font-medium text-slate-500" data-i18n="dashboard.stat1.label">Zeggenschapscore</p>
+                <p class="stat-num count-up text-2xl font-semibold text-navy-950 mt-1" data-value="7.8" data-decimals="1">7,8</p>
               </div>
               <div class="rounded-xl border border-slate-200 p-4">
-                <p class="text-[11px] font-medium text-slate-500">Verzuim dit kwartaal</p>
-                <p class="stat-num count-up text-2xl font-semibold text-navy-950 mt-1">5,2%</p>
+                <p class="text-[11px] font-medium text-slate-500" data-i18n="dashboard.stat2.label">Verzuim dit kwartaal</p>
+                <p class="stat-num count-up text-2xl font-semibold text-navy-950 mt-1" data-value="5.2" data-decimals="1" data-suffix="%">5,2%</p>
               </div>
               <div class="rounded-xl border border-slate-200 p-4">
-                <p class="text-[11px] font-medium text-slate-500">Acties afgerond</p>
-                <p class="stat-num count-up text-2xl font-semibold text-navy-950 mt-1">9</p>
+                <p class="text-[11px] font-medium text-slate-500" data-i18n="dashboard.stat3.label">Acties afgerond</p>
+                <p class="stat-num count-up text-2xl font-semibold text-navy-950 mt-1" data-value="9" data-decimals="0">9</p>
               </div>
             </div>
 
-            <p class="text-[12px] font-semibold text-slate-400 mb-2.5">VOORTGANG ACTIES</p>
+            <p class="text-[12px] font-semibold text-slate-400 mb-2.5" data-i18n="dashboard.progress.title">VOORTGANG ACTIES</p>
             <div class="space-y-2">
               <div class="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-slate-200 px-4 py-3">
                 <div class="flex items-center gap-3">
                   <span class="w-8 h-8 rounded-full flex items-center justify-center text-[11px] font-semibold text-white shrink-0" style="background: linear-gradient(135deg, var(--mint), var(--cyan));">KC</span>
-                  <span class="text-[13px] font-medium text-navy-950 whitespace-nowrap">Onboarding herzien · Klantenservice</span>
+                  <span class="text-[13px] font-medium text-navy-950 whitespace-nowrap" data-i18n="dashboard.action1.text">Onboarding herzien · Klantenservice</span>
                 </div>
-                <span class="flex items-center gap-1 text-[12px] font-semibold text-emerald-600"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Afgerond</span>
+                <span class="flex items-center gap-1 text-[12px] font-semibold text-emerald-600"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="dashboard.action1.status">Afgerond</span></span>
               </div>
               <div class="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-slate-200 px-4 py-3">
                 <div class="flex items-center gap-3">
                   <span class="w-8 h-8 rounded-full flex items-center justify-center text-[11px] font-semibold text-white shrink-0" style="background: linear-gradient(135deg, #94A3B8, #64759A);">ST</span>
-                  <span class="text-[13px] font-medium text-navy-950 whitespace-nowrap">Overdracht-protocol · Supportteam</span>
+                  <span class="text-[13px] font-medium text-navy-950 whitespace-nowrap" data-i18n="dashboard.action2.text">Overdracht-protocol · Supportteam</span>
                 </div>
-                <span class="text-[12px] font-semibold px-3 py-1.5 rounded-lg text-cyan-700" style="background: rgba(0,180,216,0.12);">In uitvoering</span>
+                <span class="text-[12px] font-semibold px-3 py-1.5 rounded-lg text-cyan-700" style="background: rgba(0,180,216,0.12);" data-i18n="dashboard.action2.status">In uitvoering</span>
               </div>
               <div class="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-slate-200 px-4 py-3">
                 <div class="flex items-center gap-3">
                   <span class="w-8 h-8 rounded-full flex items-center justify-center text-[11px] font-semibold text-white shrink-0" style="background: linear-gradient(135deg, #94A3B8, #64759A);">OP</span>
-                  <span class="text-[13px] font-medium text-navy-950 whitespace-nowrap">Dienstroosters team B · Operations</span>
+                  <span class="text-[13px] font-medium text-navy-950 whitespace-nowrap" data-i18n="dashboard.action3.text">Dienstroosters team B · Operations</span>
                 </div>
-                <span class="text-[12px] font-semibold px-3 py-1.5 rounded-lg text-slate-500" style="background: rgba(100,117,154,0.12);">Gepland</span>
+                <span class="text-[12px] font-semibold px-3 py-1.5 rounded-lg text-slate-500" style="background: rgba(100,117,154,0.12);" data-i18n="dashboard.action3.status">Gepland</span>
               </div>
             </div>
           </div>
@@ -604,9 +644,9 @@
 <section id="voorwie" class="relative overflow-hidden bg-navy-900 py-24 md:py-32">
   <div class="relative max-w-[1240px] mx-auto px-6 lg:px-10">
     <div class="reveal max-w-[600px] mx-auto text-center mb-16 md:mb-24">
-      <p class="eyebrow text-mint">DE KERN VAN ONZE AANPAK</p>
-      <h2 class="h2 text-white mt-4">Het mes snijdt aan twee kanten.</h2>
-      <p class="body-lg text-slate-300 mt-5">Door te focussen op zeggenschap verbeteren we de situatie voor medewerkers én voor management en directie, gelijktijdig.</p>
+      <p class="eyebrow text-mint" data-i18n="voorwie.eyebrow">DE KERN VAN ONZE AANPAK</p>
+      <h2 class="h2 text-white mt-4" data-i18n="voorwie.h2">Het mes snijdt aan twee kanten.</h2>
+      <p class="body-lg text-slate-300 mt-5" data-i18n="voorwie.paragraph">Door te focussen op zeggenschap verbeteren we de situatie voor medewerkers én voor management en directie, gelijktijdig.</p>
     </div>
 
     <div class="reveal relative grid grid-cols-1 md:grid-cols-2 gap-y-10 md:gap-y-14 md:gap-x-0 max-w-[920px] mx-auto">
@@ -614,20 +654,20 @@
       <div class="absolute hidden md:block left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[260px] h-[260px] rounded-full blur-[50px] opacity-60 pointer-events-none" style="background: radial-gradient(circle, rgba(0,245,160,0.35), rgba(0,180,216,0.25) 55%, transparent 75%);"></div>
 
       <div class="order-1 md:order-none relative z-10 pl-6 pr-6 md:pl-10 md:pr-24 text-center md:text-right">
-        <p class="eyebrow text-mint mb-4">VOOR MEDEWERKERS</p>
+        <p class="eyebrow text-mint mb-4" data-i18n="voorwie.medewerkers.eyebrow">VOOR MEDEWERKERS</p>
         <ul class="space-y-3">
-          <li class="body-base text-slate-200">Meer invloed op het eigen werk</li>
-          <li class="body-base text-slate-200">Ruimte om zelf een vraagstuk op te pakken</li>
-          <li class="body-base text-slate-200">Minder druk, meer werkplezier</li>
+          <li class="body-base text-slate-200" data-i18n="voorwie.medewerkers.item1">Meer invloed op het eigen werk</li>
+          <li class="body-base text-slate-200" data-i18n="voorwie.medewerkers.item2">Ruimte om zelf een vraagstuk op te pakken</li>
+          <li class="body-base text-slate-200" data-i18n="voorwie.medewerkers.item3">Minder druk, meer werkplezier</li>
         </ul>
       </div>
 
       <div class="order-3 md:order-none relative z-10 pl-6 pr-6 md:pl-24 md:pr-10 text-center md:text-left">
-        <p class="eyebrow text-cyan mb-4">VOOR MANAGEMENT &amp; DIRECTIE</p>
+        <p class="eyebrow text-cyan mb-4" data-i18n="voorwie.management.eyebrow">VOOR MANAGEMENT &amp; DIRECTIE</p>
         <ul class="space-y-3">
-          <li class="body-base text-slate-200">Concreet zicht op wat er speelt</li>
-          <li class="body-base text-slate-200">Taken structureel verdeeld in het team</li>
-          <li class="body-base text-slate-200">Sturen op resultaat met harde data</li>
+          <li class="body-base text-slate-200" data-i18n="voorwie.management.item1">Concreet zicht op wat er speelt</li>
+          <li class="body-base text-slate-200" data-i18n="voorwie.management.item2">Taken structureel verdeeld in het team</li>
+          <li class="body-base text-slate-200" data-i18n="voorwie.management.item3">Sturen op resultaat met harde data</li>
         </ul>
       </div>
 
@@ -641,10 +681,10 @@
 <!-- ============ WAT ONDERZOEK LAAT ZIEN ============ -->
 <section class="bg-ice py-24 md:py-32">
   <div class="reveal max-w-[760px] mx-auto px-6 text-center">
-    <p class="eyebrow mb-7" style="color:#0089A8;">WAT ONDERZOEK LAAT ZIEN</p>
+    <p class="eyebrow mb-7" style="color:#0089A8;" data-i18n="onderzoek.eyebrow">WAT ONDERZOEK LAAT ZIEN</p>
     <svg width="34" height="26" viewBox="0 0 34 26" fill="none" class="mx-auto mb-7"><path d="M14.4 0C6.5 2.9 0 9.8 0 17.9 0 22.4 3.3 26 7.7 26c4.2 0 7.3-3.2 7.3-7.2 0-3.7-2.6-6.6-6.1-6.9C9.9 8 12.7 5 16.6 3.4L14.4 0zm17.1 0c-7.9 2.9-14.4 9.8-14.4 17.9 0 4.5 3.3 8.1 7.7 8.1 4.2 0 7.3-3.2 7.3-7.2 0-3.7-2.6-6.6-6.1-6.9C27 8 29.8 5 33.7 3.4L31.5 0z" fill="#00B4D8"/></svg>
-    <p class="h2 !text-[1.6rem] sm:!text-[1.85rem] !leading-[1.45] !font-medium text-navy-950">Autonomie is, naast competentie en verbondenheid, een van de drie psychologische basisbehoeften die motivatie en werkplezier op het werk bepalen.</p>
-    <p class="eyebrow text-slate-500 mt-6 !text-[11px]">Bron: Zelfdeterminatietheorie, Deci &amp; Ryan</p>
+    <p class="h2 !text-[1.6rem] sm:!text-[1.85rem] !leading-[1.45] !font-medium text-navy-950" data-i18n="onderzoek.quote">Autonomie is, naast competentie en verbondenheid, een van de drie psychologische basisbehoeften die motivatie en werkplezier op het werk bepalen.</p>
+    <p class="eyebrow text-slate-500 mt-6 !text-[11px]" data-i18n="onderzoek.source">Bron: Zelfdeterminatietheorie, Deci &amp; Ryan</p>
   </div>
 </section>
 
@@ -652,9 +692,9 @@
 <section id="team" class="bg-ice py-24 md:py-32">
   <div class="max-w-[1100px] mx-auto px-6 lg:px-10">
     <div class="reveal max-w-[600px] mx-auto text-center mb-16">
-      <p class="eyebrow" style="color:#0089A8;">HET TEAM</p>
-      <h2 class="h2 text-navy-950 mt-4">De mensen achter Humeo</h2>
-      <p class="body-lg text-slate-600 mt-5">Een klein team met een duidelijke missie: organisaties helpen om zeggenschap en werkplezier merkbaar te vergroten.</p>
+      <p class="eyebrow" style="color:#0089A8;" data-i18n="team.eyebrow">HET TEAM</p>
+      <h2 class="h2 text-navy-950 mt-4" data-i18n="team.h2">De mensen achter Humeo</h2>
+      <p class="body-lg text-slate-600 mt-5" data-i18n="team.paragraph">Een klein team met een duidelijke missie: organisaties helpen om zeggenschap en werkplezier merkbaar te vergroten.</p>
     </div>
 
     <div class="flex flex-col items-center gap-y-16">
@@ -665,7 +705,7 @@
             <img src="assets/team/michiel-van-etten.png" alt="Michiel van Etten" class="absolute inset-0 w-full h-full object-cover" style="object-position: center 15%;">
           </div>
           <h3 class="h3 text-navy-950">Michiel van Etten</h3>
-          <p class="eyebrow mt-1.5" style="color:#0089A8;">STRATEGY LEAD</p>
+          <p class="eyebrow mt-1.5" style="color:#0089A8;" data-i18n="team.role.strategy">STRATEGY LEAD</p>
         </div>
 
         <div class="reveal d2 flex flex-col items-center text-center w-[180px]">
@@ -673,7 +713,7 @@
             <img src="assets/team/twan-vermeulen.png" alt="Twan Vermeulen" class="absolute inset-0 w-full h-full object-cover" style="object-position: center 22%;">
           </div>
           <h3 class="h3 text-navy-950">Twan Vermeulen</h3>
-          <p class="eyebrow mt-1.5" style="color:#0089A8;">TECH LEAD</p>
+          <p class="eyebrow mt-1.5" style="color:#0089A8;" data-i18n="team.role.tech">TECH LEAD</p>
         </div>
 
         <div class="reveal d3 flex flex-col items-center text-center w-[180px]">
@@ -681,7 +721,7 @@
             <img src="assets/team/marc-van-rooijen.png" alt="Marc van Rooijen" class="absolute inset-0 w-full h-full object-cover" style="object-position: center 15%;">
           </div>
           <h3 class="h3 text-navy-950">Marc van Rooijen</h3>
-          <p class="eyebrow mt-1.5" style="color:#0089A8;">PRODUCT LEAD</p>
+          <p class="eyebrow mt-1.5" style="color:#0089A8;" data-i18n="team.role.product">PRODUCT LEAD</p>
         </div>
       </div>
 
@@ -691,7 +731,7 @@
             <img src="assets/team/rowena-wolf.png" alt="Rowena Wolf" class="absolute inset-0 w-full h-full object-cover" style="object-position: center 0%;">
           </div>
           <h3 class="h3 text-navy-950">Rowena Wolf</h3>
-          <p class="eyebrow mt-1.5" style="color:#0089A8;">PARTNERSHIP LEAD</p>
+          <p class="eyebrow mt-1.5" style="color:#0089A8;" data-i18n="team.role.partnership">PARTNERSHIP LEAD</p>
         </div>
 
         <div class="reveal d2 flex flex-col items-center text-center w-[180px]">
@@ -699,7 +739,7 @@
             <img src="assets/team/roel-freriks.png" alt="Roel Freriks" class="absolute inset-0 w-full h-full object-cover" style="object-position: center 15%;">
           </div>
           <h3 class="h3 text-navy-950">Roel Freriks</h3>
-          <p class="eyebrow mt-1.5" style="color:#0089A8;">ADVISEUR</p>
+          <p class="eyebrow mt-1.5" style="color:#0089A8;" data-i18n="team.role.adviseur">ADVISEUR</p>
         </div>
       </div>
 
@@ -712,10 +752,10 @@
   <div class="reveal grain relative overflow-hidden max-w-[1100px] mx-auto rounded-[28px] px-8 sm:px-14 py-16 text-center" style="background: linear-gradient(155deg, var(--navy-900), var(--navy-950));border: 1px solid rgba(255,255,255,0.08);">
     <div class="glow-blob w-[420px] h-[420px] -bottom-48 left-1/2 -translate-x-1/2 bg-mint/15"></div>
     <div class="relative z-10">
-      <h2 class="h2 text-white max-w-[520px] mx-auto">Plan een kennismaking</h2>
-      <p class="body-lg text-slate-300 mt-5 max-w-[440px] mx-auto">In een gesprek van 20 minuten bespreken we wat er speelt binnen jouw organisatie, en of de pilot van 6 stappen daarbij past.</p>
+      <h2 class="h2 text-white max-w-[520px] mx-auto" data-i18n="cta.plan">Plan een kennismaking</h2>
+      <p class="body-lg text-slate-300 mt-5 max-w-[440px] mx-auto" data-i18n="cta.paragraph">In een gesprek van 20 minuten bespreken we wat er speelt binnen jouw organisatie, en of de pilot van 6 stappen daarbij past.</p>
       <div class="flex flex-wrap justify-center gap-4 mt-9">
-        <a href="mailto:info@humeo.nl" class="btn btn-primary">Plan een kennismaking</a>
+        <a href="mailto:info@humeo.nl" data-i18n="cta.plan" class="btn btn-primary">Plan een kennismaking</a>
       </div>
     </div>
   </div>
@@ -728,26 +768,26 @@
     <div class="grid sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr] gap-12">
       <div>
         <img src="assets/logo-color.svg" alt="Humeo" class="h-6 w-auto mb-4">
-        <p class="text-[14px] text-slate-500 max-w-[260px] leading-relaxed">Digitaal leiderschap dat zeggenschap en werkplezier merkbaar vergroot.</p>
+        <p class="text-[14px] text-slate-500 max-w-[260px] leading-relaxed" data-i18n="footer.tagline">Digitaal leiderschap dat zeggenschap en werkplezier merkbaar vergroot.</p>
       </div>
       <div>
-        <p class="eyebrow text-slate-500 mb-4">AANPAK</p>
+        <p class="eyebrow text-slate-500 mb-4" data-i18n="footer.aanpak.title">AANPAK</p>
         <ul class="space-y-2.5 text-[14px] text-slate-400">
-          <li><a href="#aanpak" class="hover:text-white transition-colors">Kennismaking &amp; thermometer</a></li>
-          <li><a href="#aanpak" class="hover:text-white transition-colors">Workshops</a></li>
-          <li><a href="#dashboard" class="hover:text-white transition-colors">KPI-monitoring</a></li>
-          <li><a href="#voorwie" class="hover:text-white transition-colors">Voor wie</a></li>
+          <li><a href="#aanpak" class="hover:text-white transition-colors" data-i18n="footer.aanpak.link1">Kennismaking &amp; thermometer</a></li>
+          <li><a href="#aanpak" class="hover:text-white transition-colors" data-i18n="footer.aanpak.link2">Workshops</a></li>
+          <li><a href="#dashboard" class="hover:text-white transition-colors" data-i18n="footer.aanpak.link3">KPI-monitoring</a></li>
+          <li><a href="#voorwie" class="hover:text-white transition-colors" data-i18n="footer.aanpak.link4">Voor wie</a></li>
         </ul>
       </div>
       <div>
-        <p class="eyebrow text-slate-500 mb-4">BEDRIJF</p>
+        <p class="eyebrow text-slate-500 mb-4" data-i18n="footer.bedrijf.title">BEDRIJF</p>
         <ul class="space-y-2.5 text-[14px] text-slate-400">
-          <li><a href="#team" class="hover:text-white transition-colors">Over ons</a></li>
-          <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
+          <li><a href="#team" class="hover:text-white transition-colors" data-i18n="footer.bedrijf.overons">Over ons</a></li>
+          <li><a href="#contact" class="hover:text-white transition-colors" data-i18n="footer.bedrijf.contact">Contact</a></li>
         </ul>
       </div>
       <div>
-        <p class="eyebrow text-slate-500 mb-4">VOLG ONS</p>
+        <p class="eyebrow text-slate-500 mb-4" data-i18n="footer.volgons.title">VOLG ONS</p>
         <div class="flex items-center gap-3">
           <a href="https://www.linkedin.com/company/myhumeo" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="w-9 h-9 rounded-lg border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-white/20 transition-colors">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C3.34 3.5 2 4.84 2 6.48s1.34 2.98 2.98 2.98S7.96 8.12 7.96 6.48 6.62 3.5 4.98 3.5zM2.4 21.5h5.16V8.98H2.4V21.5zM10 8.98h4.95v1.72h.07c.69-1.2 2.07-2.04 4.06-2.04 4.34 0 5.14 2.55 5.14 6.86v7h-5.16v-6.21c0-1.5-.03-3.42-2.08-3.42-2.08 0-2.4 1.62-2.4 3.31v6.32H10V8.98z"/></svg>
@@ -757,16 +797,18 @@
     </div>
 
     <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mt-14 pt-8 border-t border-white/[0.06]">
-      <p class="text-[13px] text-slate-500">© 2026 Humeo B.V. Alle rechten voorbehouden.</p>
+      <p class="text-[13px] text-slate-500" data-i18n="footer.copyright">© 2026 Humeo B.V. Alle rechten voorbehouden.</p>
       <div class="flex items-center gap-6 text-[13px] text-slate-500">
-        <a href="#" class="hover:text-white transition-colors">Privacy</a>
-        <a href="#" class="hover:text-white transition-colors">Voorwaarden</a>
+        <a href="#" class="hover:text-white transition-colors" data-i18n="footer.privacy">Privacy</a>
+        <a href="#" class="hover:text-white transition-colors" data-i18n="footer.voorwaarden">Voorwaarden</a>
       </div>
     </div>
   </div>
 </footer>
 
 <script>
+  HumeoI18n.init();
+
   const introOverlay = document.getElementById('introOverlay');
   if (introOverlay) {
     introOverlay.addEventListener('animationend', (e) => {
@@ -777,7 +819,12 @@
   const stepBtns = document.querySelectorAll('.step-btn');
   const stepPanels = document.querySelectorAll('.step-panel');
   const stepPhase = document.getElementById('stepPhase');
-  const stepPhases = ['PILOT', 'PILOT', 'PILOT', 'PILOT', 'VERVOLGTRAJECT · 6–12 MAANDEN', 'VERVOLGTRAJECT · 6–12 MAANDEN'];
+  const stepPhaseKeys = ['step.phase.pilot', 'step.phase.pilot', 'step.phase.pilot', 'step.phase.pilot', 'step.phase.vervolg', 'step.phase.vervolg'];
+  let currentStepIdx = 0;
+  function renderStepPhase() {
+    stepPhase.textContent = HumeoI18n.t(stepPhaseKeys[currentStepIdx]);
+  }
+  renderStepPhase();
   stepBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
       const idx = btn.dataset.step;
@@ -787,7 +834,8 @@
         b.setAttribute('aria-selected', String(active));
       });
       stepPanels.forEach((p) => p.classList.toggle('is-active', p.dataset.step === idx));
-      stepPhase.textContent = stepPhases[Number(idx)];
+      currentStepIdx = Number(idx);
+      renderStepPhase();
     });
   });
 
@@ -842,28 +890,33 @@
     });
   }, { passive: true });
 
-  // Count-up animation for stat numbers
+  // Count-up animation for stat numbers (locale-aware via HumeoI18n.formatNum)
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function renderCount(el, value) {
+    const decimals = Number(el.dataset.decimals || 0);
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    el.textContent = prefix + HumeoI18n.formatNum(value, decimals) + suffix;
+  }
   function animateCount(el) {
-    const raw = el.textContent.trim();
-    const match = raw.match(/^([^\d]*)([\d.,]+)(.*)$/);
-    if (!match) return;
-    const [, prefix, numStr, suffix] = match;
-    const decimals = numStr.includes(',') ? numStr.split(',')[1].length : 0;
-    const target = parseFloat(numStr.replace(/\./g, '').replace(',', '.'));
+    const target = Number(el.dataset.value);
     if (isNaN(target)) return;
-    if (reduceMotion) return;
+    el.dataset.animated = '1';
+    if (reduceMotion) { renderCount(el, target); return; }
     const duration = 1100;
     const start = performance.now();
     function tick(now) {
       const p = Math.min((now - start) / duration, 1);
       const eased = 1 - Math.pow(1 - p, 3);
-      el.textContent = prefix + (target * eased).toFixed(decimals).replace('.', ',') + suffix;
+      renderCount(el, target * eased);
       if (p < 1) requestAnimationFrame(tick);
-      else el.textContent = raw;
+      else renderCount(el, target);
     }
-    el.textContent = prefix + (0).toFixed(decimals).replace('.', ',') + suffix;
+    renderCount(el, 0);
     requestAnimationFrame(tick);
+  }
+  function refreshCountUps() {
+    document.querySelectorAll('.count-up').forEach((el) => renderCount(el, Number(el.dataset.value)));
   }
   const countEls = document.querySelectorAll('.count-up');
   const countIo = new IntersectionObserver((entries) => {
@@ -875,6 +928,48 @@
     });
   }, { threshold: 0.4 });
   countEls.forEach((el) => countIo.observe(el));
+
+  // Auto-fit hero heading: measures the two forced line breaks against the
+  // actual column width so it never wraps or overflows, in any language.
+  const heroHeading = document.getElementById('heroHeading');
+  const fitCanvas = document.createElement('canvas');
+  const fitCtx = fitCanvas.getContext('2d');
+  function fitHeroHeading() {
+    if (!heroHeading) return;
+    const spans = heroHeading.querySelectorAll(':scope > span');
+    const container = heroHeading.parentElement;
+    const containerWidth = container.clientWidth;
+    if (!containerWidth || !spans.length) return;
+    const cs = getComputedStyle(heroHeading);
+    const refSize = 100;
+    fitCtx.font = `${cs.fontWeight} ${refSize}px ${cs.fontFamily}`;
+    let maxWidthAtRef = 0;
+    spans.forEach((s) => {
+      const w = fitCtx.measureText(s.textContent).width;
+      if (w > maxWidthAtRef) maxWidthAtRef = w;
+    });
+    if (!maxWidthAtRef) return;
+    const safety = 0.94;
+    let fontPx = ((containerWidth * safety) / maxWidthAtRef) * refSize;
+    fontPx = Math.max(20, Math.min(68, fontPx));
+    heroHeading.style.fontSize = fontPx + 'px';
+  }
+  fitHeroHeading();
+  let fitTicking = false;
+  window.addEventListener('resize', () => {
+    if (fitTicking) return;
+    fitTicking = true;
+    requestAnimationFrame(() => {
+      fitHeroHeading();
+      fitTicking = false;
+    });
+  });
+
+  document.addEventListener('humeo:langchange', () => {
+    renderStepPhase();
+    refreshCountUps();
+    requestAnimationFrame(fitHeroHeading);
+  });
 </script>
 </body>
 </html>
